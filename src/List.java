@@ -72,4 +72,94 @@ public class List {
         }
         System.out.println();
     }
+
+    public boolean isDigrafo() {
+        Node node = this.head;
+        while (node != null) {
+            Node aim = node.getAim();
+            while (aim != null) {
+                if(!searchConnection(aim.getValue(),node.getValue())) {
+                    return true;
+                }
+                aim = aim.getAim();
+            }
+            node = node.getNext();
+        }
+        return false;
+    }
+
+    private boolean searchConnection(char valueAim, char valueNode) {
+        Node current = this.head;
+        while (current != null) {
+            if (current.getValue() == valueAim) {
+                Node aim = current.getAim();
+                while (aim != null) {
+                    if (aim.getValue() == valueNode) {
+                        return true;
+                    }
+                    aim = aim.getAim();
+                }
+            }
+            current = current.getNext();
+        }
+        return false;
+    }
+
+    public boolean isSimples() {
+        Node current = this.head;
+        while (current != null) {
+            Node aim = current.getAim();
+            while (aim != null) {
+                if (current.getValue() == aim.getValue()) {
+                    return false;
+                }
+                aim = aim.getAim();
+            }
+            current = current.getNext();
+        }
+        return true;
+    }
+
+    public boolean isRegularEmissao() {
+        Node node = this.head;
+        int grau = 0;
+
+        Node aim = node.getAim();
+        while (aim != null) {
+            grau++;
+            aim = aim.getAim();
+        }
+
+        node = node.getNext();
+        while (node != null) {
+            int grauVertice = 0;
+            aim = node.getAim();
+            while (aim != null) {
+                grauVertice++;
+                aim = aim.getAim();
+            }
+            if (grauVertice != grau) {
+                return false;
+            }
+            node = node.getNext();
+        }
+        return true;
+    }
+
+    public boolean isRegularRecepcao() {
+        return false;
+    }
+
+    private int countRecieving(Node node, char value) {
+        int grau = 0;
+        return grau;
+    }
+
+    public boolean isRegular() {
+        return false;
+    }
+
+    public boolean isCompleto() {
+        return false;
+    }
 }

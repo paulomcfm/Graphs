@@ -31,8 +31,15 @@ public class Main {
             List list = new List();
             list.fillList(br);
             list.printList();
-            MatrizAdjacencia MA = listToMatriz(list,n);
-            MA.printMatrix();
+            System.out.println("eh digrafo: "+ list.isDigrafo());
+            System.out.println("eh simples: "+ list.isSimples());
+            if(list.isDigrafo()) {
+                System.out.println("eh regular emissao: "+ list.isRegularEmissao());
+                System.out.println("eh regular recepcao: "+ list.isRegularRecepcao());
+            } else {
+                System.out.println("eh regular: "+ list.isRegular());
+            }
+            System.out.println("eh completo: "+ list.isCompleto());
         } else {
             System.out.println("Opção inválida.");
         }
@@ -79,9 +86,10 @@ public class Main {
             aimNode = new Node();
             for(int j=0; j<n; j++) {
                 if(matriz[i][j]!=0) {
-                    aimNode.setAim(vertices[i].charAt(0),0,j);
+//                    aimNode.setAim(vertices[i].charAt(0),0,j);
                 }
             }
         }
+        return new List();
     }
 }
