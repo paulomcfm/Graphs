@@ -4,6 +4,14 @@ import java.io.IOException;
 public class List {
     private Node head;
 
+    public Node getHead() {
+        return head;
+    }
+
+    public void setHead(Node head) {
+        this.head = head;
+    }
+
     public void fillList(BufferedReader br) throws IOException {
         String line = br.readLine();
         int j=0;
@@ -31,13 +39,13 @@ public class List {
         for (int i = 0; i < node; i++) {
             current = current.getNext();
         }
-        Node newNode = new Node(value,distance);
+        Node newNode = new Node(value);
         newNode.setAim(current.getAim());
         current.setAim(newNode);
     }
 
     private void addNext(char value, int distance) {
-        Node newNode = new Node(value,distance);
+        Node newNode = new Node(value);
         if (head == null) {
             head = newNode;
         } else {

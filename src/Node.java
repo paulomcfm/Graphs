@@ -2,11 +2,13 @@ public class Node {
     private Node next;
     private Node aim;
     private char value;
-    private int distance;
 
-    public Node(char value, int distance) {
+    public Node(char value) {
         this.value = value;
-        this.distance = distance;
+    }
+
+    public Node() {
+        this(' ');
     }
 
     public Node getNext() {
@@ -31,13 +33,5 @@ public class Node {
 
     public void setValue(char value) {
         this.value = value;
-    }
-
-    public int getDistance() {
-        return distance;
-    }
-
-    public void setDistance(int distance) {
-        this.distance = distance;
     }
 }

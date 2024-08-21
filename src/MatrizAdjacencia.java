@@ -130,4 +130,8 @@ public class MatrizAdjacencia {
         }
         return true;
     }
+
+    public void setMatriz(int[][] matriz) {
+        this.matriz = matriz;
+    }
 }

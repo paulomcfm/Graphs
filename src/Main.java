@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        String filePath = "c:\\Grafos\\dados.txt";
+        String filePath = "dados.txt";
         BufferedReader br = new BufferedReader(new FileReader(filePath));
         int n = getNumberOfVertices(br);
         Scanner scanner = new Scanner(System.in);
@@ -31,6 +31,8 @@ public class Main {
             List list = new List();
             list.fillList(br);
             list.printList();
+            MatrizAdjacencia MA = listToMatriz(list,n);
+            MA.printMatrix();
         } else {
             System.out.println("Opção inválida.");
         }
@@ -44,5 +46,42 @@ public class Main {
             count = vertices.length;
         }
         return count;
+    }
+
+    public static MatrizAdjacencia listToMatriz(List list, int n) {
+        MatrizAdjacencia MA = new MatrizAdjacencia(n);
+        int[][] matriz = new int[n][n];
+        Node current = list.getHead();
+        Node aimNode;
+        int index = 0, column;
+        while (current != null) {
+            aimNode = current.getAim();
+            while (aimNode != null) {
+                column = (int)aimNode.getValue()-65;
+                matriz[index][column] = 1; //aimNode.getDistance();
+                aimNode = aimNode.getAim();
+            }
+            index++;
+            current = current.getNext();
+        }
+        MA.setMatriz(matriz);
+        return MA;
+    }
+
+    public static List matrizToList(MatrizAdjacencia MA, int n) {
+        int[][] matriz = MA.getMatriz();
+        Node current = new Node(), head = current;
+        Node aimNode;
+        char vertice = 'A';
+        for(int i=0; i<n; i++) {
+            current.setValue(vertice++);
+            aimNode = current.getAim();
+            aimNode = new Node();
+            for(int j=0; j<n; j++) {
+                if(matriz[i][j]!=0) {
+                    aimNode.setAim(vertices[i].charAt(0),0,j);
+                }
+            }
+        }
     }
 }
