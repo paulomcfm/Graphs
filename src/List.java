@@ -34,7 +34,7 @@ public class List {
         }
     }
 
-    private void addAim(char value, int distance, int node) {
+    void addAim(char value, int distance, int node) {
         Node current = this.head;
         for (int i = 0; i < node; i++) {
             current = current.getNext();
@@ -44,7 +44,7 @@ public class List {
         current.setAim(newNode);
     }
 
-    private void addNext(char value, int distance) {
+    void addNext(char value, int distance) {
         Node newNode = new Node(value);
         if (head == null) {
             head = newNode;

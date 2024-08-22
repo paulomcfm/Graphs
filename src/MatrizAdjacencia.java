@@ -15,6 +15,7 @@ public class MatrizAdjacencia {
     public void fillMatrix(BufferedReader br) throws IOException {
         String line;
         int row = 0;
+        br.readLine();
         while ((line = br.readLine()) != null) {
             String[] numbers = line.split(",");
             for (int col = 0; col < numbers.length; col++) {

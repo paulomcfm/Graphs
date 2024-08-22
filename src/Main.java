@@ -8,44 +8,65 @@ public class Main {
         String filePath = "dados.txt";
         BufferedReader br = new BufferedReader(new FileReader(filePath));
         int n = getNumberOfVertices(br);
+        br.close();
         Scanner scanner = new Scanner(System.in);
         System.out.println("Deseja transformar em: [1] matriz [2] lista?");
         int choice = scanner.nextInt();
-
-        if (choice == 1) {
-            MatrizAdjacencia MA = new MatrizAdjacencia(n);
-            MA.fillMatrix(br);
-            MA.printMatrix();
-            System.out.println("Deseja transformar em lista [1] ou analisar a matriz [2]?");
+        while(choice==2 || choice==1) {
+            if (choice == 1) {
+                br = new BufferedReader(new FileReader(filePath));
+                MatrizAdjacencia MA = new MatrizAdjacencia(n);
+                MA.fillMatrix(br);
+                MA.printMatrix();
+                System.out.println("Deseja transformar em lista [1] ou analisar a matriz [2]?");
+                choice = scanner.nextInt();
+                if (choice == 2) {
+                    System.out.println("eh digrafo: " + MA.isDigrafo());
+                    System.out.println("eh simples: " + MA.isSimples());
+                    if (MA.isDigrafo()) {
+                        System.out.println("eh regular emissao: " + MA.isRegularEmissao());
+                        System.out.println("eh regular recepcao: " + MA.isRegularRecepcao());
+                    } else {
+                        System.out.println("eh regular: " + MA.isRegular());
+                    }
+                    System.out.println("eh completo: " + MA.isCompleto());
+                } else if (choice == 1) {
+                    List list = matrizToList(MA, n);
+                    list.printList();
+                } else {
+                    System.out.println("Opção inválida.");
+                }
+            } else if (choice == 2) {
+                br = new BufferedReader(new FileReader(filePath));
+                List list = new List();
+                list.fillList(br);
+                list.printList();
+                System.out.println("Deseja transformar em matriz [1] ou analisar a lista [2]?");
+                choice = scanner.nextInt();
+                if (choice == 2) {
+                    System.out.println("eh digrafo: " + list.isDigrafo());
+                    System.out.println("eh simples: " + list.isSimples());
+                    if (list.isDigrafo()) {
+                        System.out.println("eh regular emissao: " + list.isRegularEmissao());
+                        System.out.println("eh regular recepcao: " + list.isRegularRecepcao());
+                    } else {
+                        System.out.println("eh regular: " + list.isRegular());
+                    }
+                    System.out.println("eh completo: " + list.isCompleto());
+                } else if (choice == 1) {
+                    MatrizAdjacencia MA = listToMatriz(list, n);
+                    MA.printMatrix();
+                } else {
+                    System.out.println("Opção inválida.");
+                }
+            } else {
+                System.out.println("Opção inválida.");
+            }
+            System.out.println("Deseja transformar em: [1] matriz [2] lista?");
             choice = scanner.nextInt();
-            System.out.println("eh digrafo: "+ MA.isDigrafo());
-            System.out.println("eh simples: "+ MA.isSimples());
-            if(MA.isDigrafo()) {
-                System.out.println("eh regular emissao: "+ MA.isRegularEmissao());
-                System.out.println("eh regular recepcao: "+ MA.isRegularRecepcao());
-            } else {
-                System.out.println("eh regular: "+ MA.isRegular());
-            }
-            System.out.println("eh completo: "+ MA.isCompleto());
-        } else if (choice == 2) {
-            br.close();
-            br = new BufferedReader(new FileReader(filePath));
-            List list = new List();
-            list.fillList(br);
-            list.printList();
-            System.out.println("eh digrafo: "+ list.isDigrafo());
-            System.out.println("eh simples: "+ list.isSimples());
-            if(list.isDigrafo()) {
-                System.out.println("eh regular emissao: "+ list.isRegularEmissao());
-                System.out.println("eh regular recepcao: "+ list.isRegularRecepcao());
-            } else {
-                System.out.println("eh regular: "+ list.isRegular());
-            }
-            System.out.println("eh completo: "+ list.isCompleto());
-        } else {
-            System.out.println("Opção inválida.");
         }
     }
+
 
     public static int getNumberOfVertices(BufferedReader br) throws IOException {
         int count = 0;
@@ -80,22 +101,16 @@ public class Main {
     public static List matrizToList(MatrizAdjacencia MA, int n) {
         int[][] matriz = MA.getMatriz();
         List list = new List();
-        Node current = new Node(), head = current;
-        Node aimNode, box = new Node();
-        char vertice = 'A';
-        for(int i=0; i<n; i++) {
-            current.setValue(vertice++);
-            aimNode = current.getAim();
-            for(int j=0; j<n; j++) {
-                if(matriz[i][j]!=0) {
-                    box.setValue((char)(j+65));
-                    aimNode.setAim(box);
-                }
-                aimNode = aimNode.getAim();
-            }
-            current = current.getNext();
+        for (char vertice = 0; vertice < n; vertice++) {
+            list.addNext((char)(vertice+65),0);
         }
-        list.setHead(head);
+        for (int i = 0; i < n; i++) {
+            for(int j = 0; j < n; j++) {
+                if (matriz[i][j]!=0) {
+                    list.addAim((char)(j+65), 0,i);
+                }
+            }
+        }
         return list;
     }
 }
