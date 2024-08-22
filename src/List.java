@@ -147,19 +147,80 @@ public class List {
     }
 
     public boolean isRegularRecepcao() {
-        return false;
+        Node node = this.head;
+        int grau = countRecieving(node.getValue());
+        node = node.getNext();
+        while (node != null) {
+            int grauVertice = countRecieving(node.getValue());
+            if (grauVertice != grau) {
+                return false;
+            }
+            node = node.getNext();
+        }
+        return true;
     }
 
-    private int countRecieving(Node node, char value) {
+    private int countRecieving(char value) {
+        Node node = this.head;
         int grau = 0;
+        while (node != null) {
+            Node aim = node.getAim();
+            while (aim != null) {
+                if (aim.getValue() == value) {
+                    grau++;
+                }
+                aim = aim.getAim();
+            }
+            node = node.getNext();
+        }
         return grau;
     }
 
     public boolean isRegular() {
-        return false;
+        Node node = this.head;
+        int grau = 0;
+        Node aim = node.getAim();
+        while (aim != null) {
+            grau++;
+            aim = aim.getAim();
+        }
+        node = node.getNext();
+        while (node != null) {
+            int grauVertice = 0;
+            aim = node.getAim();
+            while (aim != null) {
+                grauVertice++;
+                aim = aim.getAim();
+            }
+            if (grauVertice != grau) {
+                return false;
+            }
+            node = node.getNext();
+        }
+        return true;
     }
 
     public boolean isCompleto() {
-        return false;
+        //conta quantos vertices tem, depois conta quantas arestas cada vertice tem, se todas os vertices tiverem o grau = n-1, entao eh completo
+        int n = 0;
+        Node current = this.head;
+        while (current != null) {
+            n++;
+            current = current.getNext();
+        }
+        current = this.head;
+        while (current != null) {
+            int grau = 0;
+            Node aim = current.getAim();
+            while (aim != null) {
+                grau++;
+                aim = aim.getAim();
+            }
+            if (grau != n-1) {
+                return false;
+            }
+            current = current.getNext();
+        }
+        return true;
     }
 }

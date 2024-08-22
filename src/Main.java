@@ -16,6 +16,8 @@ public class Main {
             MatrizAdjacencia MA = new MatrizAdjacencia(n);
             MA.fillMatrix(br);
             MA.printMatrix();
+            System.out.println("Deseja transformar em lista [1] ou analisar a matriz [2]?");
+            choice = scanner.nextInt();
             System.out.println("eh digrafo: "+ MA.isDigrafo());
             System.out.println("eh simples: "+ MA.isSimples());
             if(MA.isDigrafo()) {
@@ -77,19 +79,23 @@ public class Main {
 
     public static List matrizToList(MatrizAdjacencia MA, int n) {
         int[][] matriz = MA.getMatriz();
+        List list = new List();
         Node current = new Node(), head = current;
-        Node aimNode;
+        Node aimNode, box = new Node();
         char vertice = 'A';
         for(int i=0; i<n; i++) {
             current.setValue(vertice++);
             aimNode = current.getAim();
-            aimNode = new Node();
             for(int j=0; j<n; j++) {
                 if(matriz[i][j]!=0) {
-//                    aimNode.setAim(vertices[i].charAt(0),0,j);
+                    box.setValue((char)(j+65));
+                    aimNode.setAim(box);
                 }
+                aimNode = aimNode.getAim();
             }
+            current = current.getNext();
         }
-        return new List();
+        list.setHead(head);
+        return list;
     }
 }
