@@ -1,14 +1,24 @@
 public class Node {
     private Node next;
     private Node aim;
+    private int distance;
     private char value;
 
-    public Node(char value) {
+    public Node(char value, int distance) {
         this.value = value;
+        this.distance = distance;
+    }
+
+    public int getDistance() {
+        return distance;
+    }
+
+    public void setDistance(int distance) {
+        this.distance = distance;
     }
 
     public Node() {
-        this(' ');
+        this(' ',0);
     }
 
     public Node getNext() {

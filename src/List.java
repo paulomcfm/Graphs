@@ -25,7 +25,7 @@ public class List {
                 String[] values = line.split(",");
                 for(int i = 0; i < values.length; i++) {
                     if (!values[i].equals("0")) {
-                        addAim(vertices[i].charAt(0), 0,j);
+                        addAim(vertices[i].charAt(0), Integer.parseInt(values[i]) ,j);
                     }
                 }
                 j++;
@@ -39,13 +39,13 @@ public class List {
         for (int i = 0; i < node; i++) {
             current = current.getNext();
         }
-        Node newNode = new Node(value);
+        Node newNode = new Node(value, distance);
         newNode.setAim(current.getAim());
         current.setAim(newNode);
     }
 
     void addNext(char value, int distance) {
-        Node newNode = new Node(value);
+        Node newNode = new Node(value, distance);
         if (head == null) {
             head = newNode;
         } else {
@@ -64,7 +64,7 @@ public class List {
             System.out.print(currentHead.getValue()+ " ");
             currentAim = currentHead.getAim();
             while(currentAim != null) {
-                System.out.print(currentAim.getValue() + " ");
+                System.out.print("(" + currentAim.getValue() + ", " + currentAim.getDistance() + ") " );
                 currentAim = currentAim.getAim();
             }
             System.out.println();
