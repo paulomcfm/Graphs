@@ -120,7 +120,7 @@ public class List {
         return true;
     }
 
-    public boolean isRegularEmissao() {
+    public int isRegularEmissao() {
         Node node = this.head;
         int grau = 0;
 
@@ -139,25 +139,25 @@ public class List {
                 aim = aim.getAim();
             }
             if (grauVertice != grau) {
-                return false;
+                return 0;
             }
             node = node.getNext();
         }
-        return true;
+        return grau;
     }
 
-    public boolean isRegularRecepcao() {
+    public int isRegularRecepcao() {
         Node node = this.head;
         int grau = countRecieving(node.getValue());
         node = node.getNext();
         while (node != null) {
             int grauVertice = countRecieving(node.getValue());
             if (grauVertice != grau) {
-                return false;
+                return 0;
             }
             node = node.getNext();
         }
-        return true;
+        return grau;
     }
 
     private int countRecieving(char value) {
@@ -176,7 +176,7 @@ public class List {
         return grau;
     }
 
-    public boolean isRegular() {
+    public int isRegular() {
         Node node = this.head;
         int grau = 0;
         Node aim = node.getAim();
@@ -193,15 +193,14 @@ public class List {
                 aim = aim.getAim();
             }
             if (grauVertice != grau) {
-                return false;
+                return 0;
             }
             node = node.getNext();
         }
-        return true;
+        return grau;
     }
 
     public boolean isCompleto() {
-        //conta quantos vertices tem, depois conta quantas arestas cada vertice tem, se todas os vertices tiverem o grau = n-1, entao eh completo
         int n = 0;
         Node current = this.head;
         while (current != null) {

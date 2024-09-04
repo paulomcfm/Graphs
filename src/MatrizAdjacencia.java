@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 
 public class MatrizAdjacencia {
+    private String[] vertices;
     private int[][] matriz;
 
     public MatrizAdjacencia(int vertices) {
@@ -15,7 +16,8 @@ public class MatrizAdjacencia {
     public void fillMatrix(BufferedReader br) throws IOException {
         String line;
         int row = 0;
-        br.readLine();
+        line =  br.readLine();
+        vertices = line.split(",");
         while ((line = br.readLine()) != null) {
             String[] numbers = line.split(",");
             for (int col = 0; col < numbers.length; col++) {
@@ -26,6 +28,10 @@ public class MatrizAdjacencia {
     }
 
     public void printMatrix() {
+        for (int i = 0; i < vertices.length; i++) {
+            System.out.print(vertices[i] + " ");
+        }
+        System.out.println();
         for (int i = 0; i < matriz.length; i++) {
             for (int j = 0; j < matriz[i].length; j++) {
                 System.out.print(matriz[i][j] + " ");
@@ -34,7 +40,7 @@ public class MatrizAdjacencia {
         }
     }
 
-    public boolean isCompleto() {
+    public int isCompleto() {
         for (int i = 1; i < matriz.length; i++) {
             int grau = 0;
             for (int j = 0; j < matriz[i].length; j++) {
@@ -43,13 +49,13 @@ public class MatrizAdjacencia {
                 }
             }
             if (grau != matriz.length-1) {
-                return false;
+                return 0;
             }
         }
-        return true;
+        return matriz.length;
     }
 
-    public boolean isRegularRecepcao() {
+    public int isRegularRecepcao() {
         int grau = 0;
         for (int i = 0; i < matriz.length; i++) {
             if (matriz[i][0] != 0) {
@@ -64,13 +70,13 @@ public class MatrizAdjacencia {
                 }
             }
             if (grauVertice != grau) {
-                return false;
+                return 0;
             }
         }
-        return true;
+        return grau;
     }
 
-    public boolean isRegularEmissao() {
+    public int isRegularEmissao() {
         int grau = 0;
         for (int i = 0; i < matriz.length; i++) {
             if (matriz[0][i] != 0) {
@@ -85,10 +91,10 @@ public class MatrizAdjacencia {
                 }
             }
             if (grauVertice != grau) {
-                return false;
+                return 0;
             }
         }
-        return true;
+        return grau;
     }
 
     public boolean isDigrafo() {
@@ -111,7 +117,7 @@ public class MatrizAdjacencia {
         return true;
     }
 
-    public boolean isRegular() {
+    public int isRegular() {
         int grau = 0;
         for (int i = 0; i < matriz.length; i++) {
             if (matriz[0][i] != 0) {
@@ -126,13 +132,17 @@ public class MatrizAdjacencia {
                 }
             }
             if (grauVertice != grau) {
-                return false;
+                return 0;
             }
         }
-        return true;
+        return grau;
     }
 
     public void setMatriz(int[][] matriz) {
         this.matriz = matriz;
+    }
+
+    public String[] getVertices() {
+        return vertices;
     }
 }

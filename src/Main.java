@@ -5,7 +5,8 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        String filePath = "TESTE5.txt";
+        Tree tree = new Tree();
+        String filePath = "dados.txt";
         BufferedReader br = new BufferedReader(new FileReader(filePath));
         int n = getNumberOfVertices(br);
         br.close();
@@ -23,13 +24,28 @@ public class Main {
                 if (choice == 2) {
                     System.out.println("É dígrafo: " + MA.isDigrafo());
                     System.out.println("É simples: " + MA.isSimples());
-                    if (MA.isDigrafo()) {
-                        System.out.println("É regular emissão: " + MA.isRegularEmissao());
-                        System.out.println("É regular recepção: " + MA.isRegularRecepcao());
-                    } else {
-                        System.out.println("É regular: " + MA.isRegular());
+                    if(MA.isSimples()){
+                        if (MA.isDigrafo()) {
+                            if(MA.isRegularRecepcao()!=0)
+                                System.out.println("Dígrafo regular de recepção grau: " + MA.isRegularRecepcao());
+                            else
+                                System.out.println("Não é regular de recepção.");
+                            if(MA.isRegularEmissao()!=0)
+                                System.out.println("Dígrafo regular de emissão grau: " + MA.isRegularEmissao());
+                            else
+                                System.out.println("Não é regular de emissão.");
+                        } else {
+                            if(MA.isRegular()!=0)
+                                System.out.println("Grafo " + MA.isRegular()+"-regular.");
+                            else
+                                System.out.println("Não é regular.");
+                        }
                     }
-                    System.out.println("É completo: " + MA.isCompleto());
+                    if(MA.isCompleto()!=0)
+                        System.out.println("O grafo é k"+MA.isCompleto()+".");
+                    else
+                        System.out.println("Não é completo.");
+                    tree.generateTree(MA);
                 } else if (choice == 1) {
                     List list = matrizToList(MA, n);
                     list.printList();
@@ -46,11 +62,22 @@ public class Main {
                 if (choice == 2) {
                     System.out.println("É dígrafo: " + list.isDigrafo());
                     System.out.println("É simples: " + list.isSimples());
-                    if (list.isDigrafo()) {
-                        System.out.println("É regular emissão: " + list.isRegularEmissao());
-                        System.out.println("É regular recepção: " + list.isRegularRecepcao());
-                    } else {
-                        System.out.println("É regular: " + list.isRegular());
+                    if(list.isSimples()){
+                        if (list.isDigrafo()) {
+                            if(list.isRegularRecepcao()!=0)
+                                System.out.println("Dígrafo regular de recepção grau: " + list.isRegularRecepcao());
+                            else
+                                System.out.println("Não é regular de recepção.");
+                            if(list.isRegularEmissao()!=0)
+                                System.out.println("Dígrafo regular de emissão grau: " + list.isRegularEmissao());
+                            else
+                                System.out.println("Não é regular de emissão.");
+                        } else {
+                            if(list.isRegular()!=0)
+                                System.out.println("Grafo " + list.isRegular()+"-regular.");
+                            else
+                                System.out.println("Não é regular.");
+                        }
                     }
                     System.out.println("É completo: " + list.isCompleto());
                 } else if (choice == 1) {
