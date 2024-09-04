@@ -3,14 +3,14 @@ import java.util.ArrayList;
 public class TreeNode {
     private String name;
     private int accessOrder;
-    private int smallerAccessOrderNeighbour;
+    private int smallerAccessOrderNeighboursNotOnTree;
     private int smallerValueNeighbour;
     private ArrayList<TreeNode> children;
 
     public TreeNode(String name, int accessOrder) {
         this.name = name;
         this.accessOrder = accessOrder;
-        this.smallerAccessOrderNeighbour = 0;
+        this.smallerAccessOrderNeighboursNotOnTree = 0;
         this.smallerValueNeighbour = 0;
         this.children = new ArrayList<>();
     }
@@ -23,12 +23,12 @@ public class TreeNode {
         this.accessOrder = accessOrder;
     }
 
-    public int getSmallerAccessOrderNeighbour() {
-        return smallerAccessOrderNeighbour;
+    public int getSmallerAccessOrderNeighboursNotOnTree() {
+        return smallerAccessOrderNeighboursNotOnTree;
     }
 
-    public void setSmallerAccessOrderNeighbour(int smallerAccessOrderNeighbour) {
-        this.smallerAccessOrderNeighbour = smallerAccessOrderNeighbour;
+    public void setSmallerAccessOrderNeighboursNotOnTree(int smallerAccessOrderNeighboursNotOnTree) {
+        this.smallerAccessOrderNeighboursNotOnTree = smallerAccessOrderNeighboursNotOnTree;
     }
 
     public int getSmallerValueNeighbour() {
